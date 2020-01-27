@@ -30,24 +30,31 @@ public class TestModelo {
 
 	@Test
 	public void testDarTamano() {
-		// TODO
+		setUp1();
+		assertEquals(100, modelo.darTamano());
 	}
 
 	@Test
 	public void testAgregar() {
-		// TODO Completar la prueba
+		setUp2();
+		
 	}
 
 	@Test
 	public void testBuscar() {
 		setUp2();
-		// TODO Completar la prueba
+		int i = 0;
+		String elemento = "" + i;
+		assertEquals(elemento, modelo.buscar(elemento));
+		
 	}
 
 	@Test
 	public void testEliminar() {
 		setUp2();
-		// TODO Completar la prueba
+		int i = 0;
+		assertEquals(0, modelo.eliminar("" + i));
+	
 		
 	}
 
