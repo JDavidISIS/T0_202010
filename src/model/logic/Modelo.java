@@ -25,7 +25,7 @@ public class Modelo {
 	 * Constructor del modelo del mundo con capacidad dada
 	 * @param tamano
 	 */
-	public Modelo(int capacidad)
+	public Modelo(Integer capacidad)
 	{
 		datos = new ArregloDinamico(capacidad);
 	}

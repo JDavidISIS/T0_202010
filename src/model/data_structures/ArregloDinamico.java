@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico implements IArregloDinamico {
+public class ArregloDinamico <K extends Comparable <K>> implements IArregloDinamico {
 		/**
 		 * Capacidad maxima del arreglo
 		 */
@@ -19,7 +19,7 @@ public class ArregloDinamico implements IArregloDinamico {
         /**
          * Arreglo de elementos de tamaNo maximo
          */
-        private String elementos[ ];
+        private K[] elementos;
 
         /**
          * Construir un arreglo con la capacidad maxima inicial.
@@ -27,25 +27,25 @@ public class ArregloDinamico implements IArregloDinamico {
          */
 		public ArregloDinamico( int max )
         {
-               elementos = new String[max];
+               elementos = (K[]) new Comparable[max];
                tamanoMax = max;
                tamanoAct = 0;
         }
         
-		public void agregar( String dato )
+		public void agregar(Comparable dato )
         {
                if ( tamanoAct == tamanoMax )
                {  // caso de arreglo lleno (aumentar tamaNo)
                     tamanoMax = 2 * tamanoMax;
-                    String [ ] copia = elementos;
-                    elementos = new String[tamanoMax];
+                    K[] copia = (K[]) elementos;
+                    elementos = (K[]) new Comparable[tamanoMax];
                     for ( int i = 0; i < tamanoAct; i++)
                     {
                      	 elementos[i] = copia[i];
                     } 
             	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
                }	
-               elementos[tamanoAct] = dato;
+               elementos[tamanoAct] = (K) dato;
                tamanoAct++;
        }
 
@@ -58,20 +58,53 @@ public class ArregloDinamico implements IArregloDinamico {
 		}
 
 		public String darElemento(int i) {
-			// TODO implementar
-			return null;
+			
+			if(i > elementos.length)return null;
+			return (String) elementos[i];
+			
 		}
 
-		public String buscar(String dato) {
-			// TODO implementar
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			return null;
+		public String buscar(Comparable dato) {
+			
+			String buscado = null;
+			for (int i = 0; i < elementos.length; i++) {
+				if(darElemento(i).compareTo((String) dato) == 0)
+				{
+					buscado = darElemento(i);
+				}
+			}
+			
+			return buscado;
 		}
 
-		public String eliminar(String dato) {
-			// TODO implementar
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			return null;
+		public String eliminar(Comparable dato) {
+			
+			K[] copia = elementos;
+			String eliminado = null;
+			for (int i = 0; i < elementos.length; i++) {
+				
+				if(darElemento(i).compareTo((String) dato) == 0)
+				{
+					eliminado = (String) elementos[i];
+					
+					if(i == 0 || (i > 0 && i < elementos.length) )
+					{
+						tamanoAct--;
+						copia [i] = elementos[i+1] ;
+						elementos[i] = copia[i];
+					}
+					else if ( i == elementos.length)
+					{
+						tamanoAct--;
+					}
+					
+				}
+				
+			}
+			
+			return eliminado;
+			
 		}
-
 }
+
+
